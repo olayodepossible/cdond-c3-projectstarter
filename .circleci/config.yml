@@ -112,39 +112,39 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
-      checkout
+      - checkout
       # Restore from cache
       - restore_cache:
           keys: [frontend-build]
       # Your job code here
-      - run: 
+      - run:
           name: Scan Front-end
           command: |
-              cd frontend
-              npm install
-              npm audit --audit-level=critical
+            cd frontend
+            npm install
+            npm audit --audit-level=critical
 
   scan-backend:
     docker:
       # Docker image here
       - image: circleci/node:13.8.0
     steps:
-      # Checkout code from git- 
-      checkout
+      # Checkout code from git-
+      - checkout
       # Restore from cache
       - restore_cache:
           keys: [backend-build]
       # Your job code here
-      - run: 
-           name: Analyze Back-end
-           command: |
-              cd backend
-              npm install
-              npm update mkdirp --depth 2
-              npm update path-parse --depth 3 
-              npm update kind-of --depth 10
-              npm install --save-dev webpack@5.73.0
-              npm audit --audit-level=critical 
+      - run:
+          name: Analyze Back-end
+          command: |
+            cd backend
+            npm install
+            npm update mkdirp --depth 2
+            npm update path-parse --depth 3 
+            npm update kind-of --depth 10
+            npm install --save-dev webpack@5.73.0
+            npm audit --audit-level=critical
 
 #   deploy-infrastructure:
 #     docker:
