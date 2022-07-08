@@ -45,9 +45,23 @@ jobs:
       - image: "cimg/base:stable"
     steps:
       - slack/notify:
-          when: on_fail
-          message: build failure
-          color: "#2B56ED"
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "color": "2B56ED"
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "This is a text notification",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: fail
 
   build-frontend:
     docker:
