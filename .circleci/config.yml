@@ -48,10 +48,7 @@ jobs:
           when: on_fail
           message: build failure
           color: "#2B56ED"
-	        template: "basic_fail_1"
-          when: on_success
-	        template: "basic_success_1"
-          
+
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
