@@ -45,11 +45,12 @@ jobs:
       - image: "cimg/base:stable"
     steps:
       - slack/notify:
-          event: fail
-	        template: basic_fail_1
+            event: fail
+	          template: basic_fail_1
       - slack/notify:
-          event: pass
-	        template: basic_success_1
+            event: pass
+	          template: basic_success_1
+          
 
   build-frontend:
     docker:
