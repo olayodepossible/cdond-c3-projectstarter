@@ -324,7 +324,7 @@ jobs:
           command: |
             apk add --update ansible
             pip install awscli
-            apk add --update --no-cache tar gzip nodejs npm curl pm2
+            apk add --update --no-cache tar gzip nodejs npm curl
       - run:
           name: Deploy backend
           command: |
