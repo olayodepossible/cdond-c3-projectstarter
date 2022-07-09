@@ -233,6 +233,10 @@ jobs:
             apk add --update ansible
             pip install awscli
       - run:
+          name: Install dependencies (openssh)
+          command: |
+            apk add --update openssh-server
+      - run:
           name: Configure server
           command: |
             cd .circleci/ansible
