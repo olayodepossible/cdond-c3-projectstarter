@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  slack: circleci/slack@4.10.1
-
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -29,15 +26,17 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
-            if(( $SUCCESS==1 )); 
+            SUCCESS=$(curl --insecure  https://kvdb.io/EbZB49u2CkVDdsn8R4ctWP/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            if (($SUCCESS == 1))
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+              cd ~/project/backend
+              npm instal
+              npm run build
+              npm run migrations:revert
             fi
+
+orbs:
+  slack: circleci/slack@4.10.1
 
 jobs:
   notify:
