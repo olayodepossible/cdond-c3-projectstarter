@@ -336,6 +336,7 @@ jobs:
             mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
             mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
             cd .circleci/ansible
+            aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory
             echo "Displaying content of the inventory.txt file ------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
