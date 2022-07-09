@@ -334,7 +334,7 @@ jobs:
             tar -C backend -czvf artifact.tar.gz .
             mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
             mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
-            cd .circleci/ansibleinventory
+            cd .circleci/ansible/inventory
             echo "Displaying content of the inventory.txt file ------"
             cat inventory
             ansible-playbook -i inventory deploy-backend.yml
