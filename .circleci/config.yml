@@ -39,29 +39,6 @@ orbs:
   slack: circleci/slack@4.10.1
 
 jobs:
-  notify:
-    docker:
-      - image: "cimg/base:stable"
-    steps:
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "color": "2B56ED"
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "This is a text notification",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: fail
-
   build-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -466,8 +443,6 @@ jobs:
 workflows:
   default:
     jobs:
-      - notify:
-          context: slack-secrets
       - build-frontend
       - build-backend
       - test-frontend:
