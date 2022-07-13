@@ -429,7 +429,7 @@ jobs:
             echo Stack names: "${STACKS[@]}"
 
             # export OldWorkflowID="$WorkFlowID"
-            if [[ "${STACKS[@]}" =~ "OldWorkFlowID"  ]]
+            if [[ "OldWorkFlowID" =~ "${STACKS[@]}" ]]
             then
               echo "$OldWorkflowID" is not the same as "$WorkFlowID" deleting Old Stack
               aws s3 rm "s3://udapeople-$OldWorkFlowID" --recursive
