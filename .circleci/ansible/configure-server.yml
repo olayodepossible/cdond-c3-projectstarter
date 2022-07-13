@@ -24,7 +24,7 @@
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
-    ENVIRONMENT: production
+    - ENVIRONMENT: production
     - TYPEORM_CONNECTION: "postgres"
     - TYPEORM_ENTITIES: "/home/ubuntu/app/dist/modules/domain/**/*.entity{.ts,.js}"
     - TYPEORM_MIGRATIONS: "/home/ubuntu/app/dist/migrations/*.js"
