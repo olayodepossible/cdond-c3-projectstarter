@@ -385,7 +385,7 @@ jobs:
             apk add --update --no-cache tar gzip nodejs npm curl
             pip install awscli
       - run:
-          name: Fetch OldworkflowId cloudfront distribution
+          name: Fetch and Save OldworkflowId cloudfront manually created
           command: |
             export OldWorkflowID=$(aws cloudformation \
                list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
@@ -393,7 +393,6 @@ jobs:
                echo $OldWorkflowID >> ~/OldWorkflowID.txt
                cat ~/OldWorkflowID.txt
                curl https://kvdb.io/EbZB49u2CkVDdsn8R4ctWP/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "$WorkflowID"
-               echo WorkflowID: "$WorkflowID"
 
       - run:
           name: Update cloudfront distribution
@@ -403,6 +402,12 @@ jobs:
                --stack-name UdaPeople \
                --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
                --tags project=udapeople
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - OldWorkflowID.txt
+      - attach_workspace:
+          at: ~/
       #  rollback on failure
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
