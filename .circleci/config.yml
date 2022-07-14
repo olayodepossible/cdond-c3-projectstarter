@@ -384,7 +384,6 @@ jobs:
           command: |
             apk add --update --no-cache tar gzip nodejs npm curl
             pip install awscli
-
       - run:
           name: Fetch and Save OldworkflowId cloudfront manually created
           command: |
@@ -427,7 +426,7 @@ jobs:
       - run:
           name: Install tar utility
           command: |
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            yum install -y tar gzip
       - attach_workspace:
           at: ~/
 
@@ -443,7 +442,7 @@ jobs:
             export STACKS=$(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)
 
-            export OldWorkFlowID= $(cat ~/oldWorkflowId/OldWorkflowID.txt)
+            export OldWorkFlowID=$(cat ~/OldWorkflowID.txt)
             export CurrentWorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
 
             echo OldWorkFlowID: "${OldWorkFlowID}"
