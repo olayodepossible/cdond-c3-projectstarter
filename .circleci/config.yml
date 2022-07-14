@@ -393,7 +393,7 @@ jobs:
                --no-paginate --output text)
 
                echo $OldWorkflowID > oldWorkflowId/OldWorkflowID.txt
-               cat  OldWorkflowID.txt
+               cat  oldWorkflowId/OldWorkflowID.txt
                curl https://kvdb.io/EbZB49u2CkVDdsn8R4ctWP/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "$WorkflowID"
 
       - persist_to_workspace:
