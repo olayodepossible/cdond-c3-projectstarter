@@ -421,8 +421,8 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/oldWorkflowId
+      # - attach_workspace:
+      #     at: ~/oldWorkflowId
       - run:
           name: Clean Ups
           command: |
