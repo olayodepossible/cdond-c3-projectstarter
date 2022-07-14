@@ -384,7 +384,7 @@ jobs:
           command: |
             apk add --update --no-cache tar gzip nodejs npm curl
             pip install awscli
-      - run: mkdir -p oldWorkflowId
+
       - run:
           name: Fetch and Save OldworkflowId cloudfront manually created
           command: |
@@ -392,8 +392,8 @@ jobs:
                list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
                --no-paginate --output text)
 
-               echo $OldWorkflowID > oldWorkflowId/OldWorkflowID.txt
-               cat  oldWorkflowId/OldWorkflowID.txt
+               echo $OldWorkflowID > ~/OldWorkflowID.txt
+               cat  ~/OldWorkflowID.txt
                curl https://kvdb.io/EbZB49u2CkVDdsn8R4ctWP/migration_${CIRCLE_WORKFLOW_ID:0:7} -d "$WorkflowID"
 
       - run:
@@ -406,11 +406,11 @@ jobs:
                --tags project=udapeople
 
       - persist_to_workspace:
-          root: oldWorkflowId
+          root: ~/
           paths:
             - OldWorkflowID.txt
       - attach_workspace:
-          at: ~/oldWorkflowId
+          at: ~/
 
       #  rollback on failure
       - destroy-environment:
@@ -427,9 +427,9 @@ jobs:
       - run:
           name: Install tar utility
           command: |
-            yum install -y tar gzip
+            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
       - attach_workspace:
-          at: ~/oldWorkflowId
+          at: ~/
 
       - run:
           name: Get old workflowId
