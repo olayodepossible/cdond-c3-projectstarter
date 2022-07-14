@@ -432,7 +432,7 @@ jobs:
       - run:
           name: Clean Ups
           command: |
-            export OldWorkFlowID= $(cat  ~/oldWorkflowId/OldWorkflowID.txt)
+            export OldWorkFlowID= $(cat oldWorkflowId/OldWorkflowID.txt)
 
             export CurrentWorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
 
