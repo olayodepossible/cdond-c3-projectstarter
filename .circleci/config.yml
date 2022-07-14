@@ -421,22 +421,25 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      # - attach_workspace:
-      #     at: ~/oldWorkflowId
+
       - run:
           name: Install tar utility
           command: |
             yum install -y tar gzip
+      - attach_workspace:
+          at: ~/oldWorkflowId
+
       - run:
           name: Clean Ups
           command: |
+            export OldWorkFlowID= $(cat  ~/oldWorkflowId/OldWorkflowID.txt)
+
             export CurrentWorkflowID="${CIRCLE_WORKFLOW_ID:0:7}"
 
             export STACKS=$(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)
 
-            cat  ~/oldWorkflowId/OldWorkflowID.txt
-            OldWorkFlowID="${cat  ~/oldWorkflowId/OldWorkflowID.txt}"
+
             echo OldWorkFlowID: "${OldWorkFlowID}"
             echo CurrentWorkflowID: "${CurrentWorkflowID}"
             echo Stack names: "${STACKS[@]}"
