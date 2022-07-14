@@ -439,7 +439,6 @@ jobs:
             export STACKS=$(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)
 
-
             echo OldWorkFlowID: "${OldWorkFlowID}"
             echo CurrentWorkflowID: "${CurrentWorkflowID}"
             echo Stack names: "${STACKS[@]}"
